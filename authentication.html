@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="authentication.css" />
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="welcome-panel">
+        <h1>Hello there!</h1>
+        <p>
+          Join us on a new and exciting journey to unlock your potential and
+          master your studies!
+        </p>
+        <button onclick="window.location.href='authentication.html'" class="text-button">
+          Already have an account? Sign in
+        </button>
+      </div>
+      <div class="form-panel">
+        <div class="form-container">
+          <h2>Sign Up</h2>
+          <form id="signupForm" class="auth-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" class="submit-btn">Sign Up</button>
+
+            <div class="divider">
+              <span>or</span>
+            </div>
+
+            <button type="button" id="googleSignIn" class="google-btn">
+              <img
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                alt="Google logo"
+              />
+              Sign up with Google
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+   
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup,
+        updateProfile,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBKXyzmmxlBPWap0G8HGm8-RFYDT2oKXMM",
+        authDomain: "ibleague-e3e80.firebaseapp.com",
+        projectId: "ibleague-e3e80",
+        storageBucket: "ibleague-e3e80.firebasestorage.app",
+        messagingSenderId: "836270798953",
+        appId: "1:836270798953:web:3262337b7e889446044af8",
+        measurementId: "G-67WKY6L49W"
+      };
+
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+    
+      window.createUser = createUserWithEmailAndPassword;
+      window.auth = auth;
+      window.googleProvider = provider;
+      window.signInWithPopup = signInWithPopup;
+    </script>
+
+    <script type="module" src="authentication.js"></script>
+  </body>
+</html>

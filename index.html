@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IB League - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../navbar/navbar.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBKXyzmmxlBPWap0G8HGm8-RFYDT2oKXMM",
+        authDomain: "ibleague-e3e80.firebaseapp.com",
+        projectId: "ibleague-e3e80",
+        storageBucket: "ibleague-e3e80.appspot.com",
+        messagingSenderId: "836270798953",
+        appId: "1:836270798953:web:3262337b7e889446044af8",
+        measurementId: "G-67WKY6L49W",
+      };
+
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../navbar/navbar.js"></script>
+  </head>
+  <body>
+    <div id="navbar-placeholder"></div>
+
+    <main class="home">
+      <div class="home-content">
+        <div class="home-text">
+          <h1>
+            Quit scrolling through useless reels!<br />
+            <span class="gradient-text">
+              Start scrolling through <span class="white-text">useful concepts!</span>
+            </span>
+          </h1>
+          <p>
+            Our platform is built exclusively for MYP 4 and 5 students - to help
+            you find a platform where you guys can practice for countless hours
+            while leveling up yourself and confidence. While also releasing your
+            stress and anxiety.
+          </p>
+          <div class="button-group">
+            <button
+              onclick="navigateTo('../scroll/scroll.html')"
+              class="primary-button"
+            >
+              Start Scrolling
+            </button>
+            <button
+              onclick="navigateTo('../flashcards/flashcards.html')"
+              class="secondary-button"
+            >
+              Explore Flashcards
+            </button>
+          </div>
+        </div>
+        <div class="home-image">
+          <img src="../images/homepage.jpeg" alt="Student studying" />
+        </div>
+      </div>
+    </main>
+
+    <script>
+      fetch("../navbar/navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+          const script = document.createElement("script");
+          script.src = "../navbar/navbar.js";
+          document.body.appendChild(script);
+        });
+    </script>
+
+    <script src="main.js"></script>
+  </body>
+</html>

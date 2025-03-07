@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>IB League - Scroll</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <link rel="stylesheet" href="scroll.css" />
+    <link rel="stylesheet" href="../navbar/navbar.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div id="navbar-placeholder"></div>
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <h2>Subjects</h2>
+        <button class="subject-btn active" data-subject="mathematics">
+          Mathematics
+        </button>
+        <button class="subject-btn" data-subject="physics">Physics</button>
+        <button class="subject-btn" data-subject="chemistry">Chemistry</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="stats-bar">
+        <div class="points">
+          <span class="points-label">Points:</span>
+          <span class="points-value" id="pointsDisplay">0</span>
+        </div>
+        <div class="subject-tag" id="currentSubject">Mathematics</div>
+      </div>
+      <div class="scroll-container">
+        <div class="questions-feed" id="questionsFeed"></div>
+      </div>
+    </main>
+
+    <script src="scroll.js"></script>
+
+    <script src="../navbar/navbar.js"></script>
+  </body>
+</html>

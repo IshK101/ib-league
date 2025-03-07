@@ -1,0 +1,602 @@
+:root {
+  --background: #1e2952;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --primary: #3B82F6;
+  --primary-dark: #2563eb;
+  --text: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --border: rgba(255, 255, 255, 0.1);
+  --success: #4CAF50;
+  --error: #f44336;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+
+.content {
+  padding-top: 4rem;
+  min-height: calc(100vh - 4rem);
+  position: relative;
+}
+
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 95px;
+  bottom: 0;
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 0;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-15rem);
+}
+
+.sidebar-content {
+  padding: 1.5rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.subjects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subject-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  text-align: left;
+}
+
+.subject-button:hover {
+  background: rgba(155, 135, 245, 0.1);
+  color: var(--text);
+}
+
+.subject-button.active {
+  background: rgba(155, 135, 245, 0.2);
+  color: var(--text);
+}
+
+.toggle-sidebar {
+  position: fixed;
+  left: 1rem;
+  top: 5rem;
+  z-index: 41;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 680px;
+  margin-left: 180px;
+}
+
+
+.toggle-sidebar:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+.main-content {
+  margin-left: 16rem;
+  padding: 2rem;
+  transition: margin-left 0.3s;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-content.collapsed {
+  margin-left: 4rem;
+}
+
+
+.points-display {
+  position: fixed;
+  top: 7rem;
+  right: 2rem;
+  background: rgba(26, 31, 44, 0.9);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  z-index: 30;
+  min-width: 200px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  transition: width 0.3s;
+  width: 0;
+}
+
+.flashcard-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.flashcard {
+  width: 32rem;
+  height: 20rem;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+.subject-tag {
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+  display: inline-block;
+  min-width: min-content;
+  max-width: fit-content;
+  backdrop-filter: blur(5px);
+}
+
+.question,
+.answer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.flip-hint {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+.assessment-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.assessment-button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assessment-button i {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+}
+
+.assessment-button.correct {
+  background: var(--success);
+  color: white;
+}
+
+.assessment-button.incorrect {
+  background: var(--error);
+  color: white;
+}
+
+.assessment-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.cards-progress {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progress-bar.vertical {
+  width: 0.5rem;
+  height: 16rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background: rgba(26, 31, 44, 0.95);
+  color: var(--text);
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.toast.correct {
+  background: var(--success);
+}
+
+.toast.incorrect {
+  background: var(--error);
+}
+
+
+@media (max-width: 1024px) {
+  .flashcard {
+      width: 24rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+      width: 100%;
+      transform: translateX(-100%);
+  }
+
+  .sidebar.collapsed {
+      transform: translateX(-100%);
+  }
+
+  .main-content {
+      margin-left: 0;
+      padding: 1rem;
+  }
+
+  .main-content.collapsed {
+      margin-left: 0;
+  }
+
+  .flashcard {
+      width: 100%;
+      max-width: 20rem;
+  }
+
+  .cards-progress {
+      display: none;
+  }
+}
+
+.create-card-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 2.1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+.create-button-text {
+    display: inline-block;
+    margin: 0;
+    font-weight: 500;
+    color: white;
+    white-space: nowrap;
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+}
+
+.modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+}
+
+#createCardForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#createCardForm select,
+#createCardForm textarea {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    width: 100%;
+    padding: 12px;
+}
+
+#createCardForm textarea {
+    min-height: 120px;
+    resize: vertical;
+    margin-top: 8px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.modal-buttons button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal-buttons button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-buttons button[type="submit"] {
+    background-color: #354684;
+    color: white;
+}
+
+.modal-buttons button[type="button"] {
+    background-color: #34478a;
+    color: white;
+}
+
+.card-subject {
+  margin-top: 1rem;
+}
+.card-question {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+#createCardForm select:hover::before,
+#createCardForm textarea:hover::before {
+    content: attr(placeholder);
+    position: absolute;
+    transform: translateY(-130%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+#createCardForm select:hover::after,
+#createCardForm textarea:hover::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+#createCardForm select:hover::before,
+#createCardForm textarea:hover::before,
+#createCardForm select:hover::after,
+#createCardForm textarea:hover::after {
+    opacity: 1;
+}
+
+#createCardForm select,
+#createCardForm textarea {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    width: 100%;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+#createCardForm select:focus,
+#createCardForm textarea:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+#createCardForm select::placeholder,
+#createCardForm textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+#createCardForm select:focus::placeholder,
+#createCardForm textarea:focus::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#createCardForm select:hover,
+#createCardForm textarea:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.nav-button.prev {
+    position: absolute;
+    left: -64px;
+    top: calc(50% - 24px);
+    z-index: 10;
+    background: var(--background);
+    border: 1px solid var(--border);
+}
+
+.nav-button.next {
+    position: absolute;
+    right: -64px;
+    top: calc(50% - 24px);
+    z-index: 10;
+    background: var(--background);
+    border: 1px solid var(--border);
+}
+
+.nav-button.prev:hover,
+.nav-button.next:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary);
+}
+
+.nav-button.prev:disabled,
+.nav-button.next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--background);
+    border: 1px solid var(--border);
+}
+

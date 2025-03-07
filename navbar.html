@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <link rel="stylesheet" href="../navbar/navbar.css" />
+    
+    <!-- Add Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+
+    <script>
+      const firebaseConfig = {
+    apiKey: "AIzaSyBKXyzmmxlBPWap0G8HGm8-RFYDT2oKXMM",
+    authDomain: "ibleague-e3e80.firebaseapp.com",
+    projectId: "ibleague-e3e80",
+    storageBucket: "ibleague-e3e80.firebasestorage.app",
+    messagingSenderId: "836270798953",
+    appId: "1:836270798953:web:3262337b7e889446044af8",
+    measurementId: "G-67WKY6L49W"
+      };
+
+
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+    </script>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="logo-container">
+          <a href="../home-page/index.html">
+            <img src="../images/logo.png" alt="logo" class="logo-img" />
+          </a>
+        </div>
+        <a href="../home-page/index.html" class="logo">IB League</a>
+        <nav>
+        
+        
+            
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+
+    <script src="navbar.js"></script>
+
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="../navbar/navbar.css" />
+
+    <nav class="navbar">
+      <div class="logo">
+        <div class="logo-container">
+          <img src="../images/logo.png" alt="IBLeague Logo" class="logo-img" />
+          <a href="../home-page/index.html" class="logo-text">IB League</a>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-buttons">
+          <a href="../scroll/scroll.html" class="nav-button">Scroll</a>
+          <a href="../flashcards/flashcards.html" class="nav-button">Flashcards</a>
+        </div>
+        <div class="profile-container">
+          <div class="profile-icon" id="profileIcon" onclick="toggleDropdown()">
+            <img
+              src="../images/user.png"
+              alt="Profile"
+            />
+          </div>
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="dropdown-content">
+       
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>
